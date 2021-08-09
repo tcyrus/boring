@@ -139,8 +139,6 @@ macro_rules! foreign_type_and_impl_send_sync {
 
         $(#[$owned_attr:meta])*
         pub struct $owned:ident;
-        $(#[$borrowed_attr:meta])*
-        pub struct $borrowed:ident;
     )
         => {
             foreign_type! {
@@ -150,16 +148,8 @@ macro_rules! foreign_type_and_impl_send_sync {
                     type CType = $ctype;
                     fn drop = $drop;
                     $(fn clone = $clone;)*
-                    // pub struct $owned;
-                    // $(#[$borrowed_attr])*
-                    // pub struct $borrowed;
                 }
             }
-
-            // unsafe impl Send for $owned{}
-            // unsafe impl Send for $borrowed{}
-            // unsafe impl Sync for $owned{}
-            // unsafe impl Sync for $borrowed{}
         };
 }
 
