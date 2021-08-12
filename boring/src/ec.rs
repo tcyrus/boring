@@ -203,6 +203,26 @@ impl EcGroupRef {
         }
     }
 
+    /// Determines if this group is equal to another.
+    ///
+    /// OpenSSL doucmentation at [`EC_GROUP_cmp`]
+    ///
+    /// [`EC_GROUP_cmp`]: https://www.openssl.org/docs/man1.1.0/crypto/EC_GROUP_cmp.html
+    pub fn eq(
+        &self,
+        other: &EcGroupRef,
+        ctx: &mut BigNumContextRef,
+    ) -> Result<bool, ErrorStack> {
+        unsafe {
+            let res = cvt_n(ffi::EC_GROUP_cmp(
+                self.as_ptr(),
+                other.as_ptr(),
+                ctx.as_ptr(),
+            ))?;
+            Ok(res == 0)
+        }
+    }
+    
     /// Places the order of the curve in the provided `BigNum`.
     ///
     /// OpenSSL documentation at [`EC_GROUP_get_order`]
