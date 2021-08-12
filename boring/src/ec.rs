@@ -577,7 +577,7 @@ where
         ffi::i2d_ECPrivateKey
     }
 
-    /// Return [`EcPoint`] associated with the private key
+    /// Return [`BigNum`] associated with the private key
     ///
     /// OpenSSL documentation at [`EC_KEY_get0_private_key`]
     ///
